@@ -1,0 +1,24 @@
+# DataHub BigQuery Ingestion Recipe
+source:
+  type: bigquery
+  config:
+    project_id: ghe-albert-dev-11122025
+    dataset_pattern:
+      allow:
+        - "poc_ecommerce"
+    
+    # Lineage Extraction
+    include_table_lineage: true
+    include_column_lineage: true
+    
+    # Profiling Configuration
+    profiling:
+      enabled: true
+      profile_table_level_only: false
+      # This allows getting min, max, null counts etc.
+      include_column_stats: true
+
+sink:
+  type: "datahub-rest"
+  config:
+    server: "http://localhost:8080"
